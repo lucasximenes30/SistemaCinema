@@ -19,7 +19,7 @@ public class Ator extends Pessoa {
         this.registro = registro;
     }
     public boolean cadastrar() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("atores.txt", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\alunot7\\Downloads\\SistemaCinema-main\\SistemaCinema-main\\BD\\atores.txt", true))) {
             writer.write(this.registro + ";" + this.getNome());
             writer.newLine();
             return true;
