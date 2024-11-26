@@ -1,13 +1,19 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Sessao {
     private int idsessao;
-    private  DateTimeFormatter datahorasessao;
+    private DateTimeFormatter datahorasessao;
     private Filme filme;
     private Funcionario funcionario;
     private String status;
     
+    // Getters e Setters
     public int getIdsessao() {
         return idsessao;
     }
@@ -38,11 +44,102 @@ public class Sessao {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    // Construtor
     public Sessao(int idsessao, DateTimeFormatter datahorasessao, Filme filme, Funcionario funcionario, String status) {
         this.idsessao = idsessao;
         this.datahorasessao = datahorasessao;
         this.filme = filme;
         this.funcionario = funcionario;
         this.status = status;
+    }
+
+    // Método para cadastrar
+    public boolean cadastrar() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\sessoes.txt", true))) {
+            writer.write(this.getIdsessao() + ";" +
+                         this.getDatahorasessao() + ";" +
+                         this.getFilme().getIdfilme() + ";" +  // Assuming Filme has getIdfilme()
+                         this.getFuncionario().getMatricula() + ";" +  // Assuming Funcionario has getMatricula()
+                         this.getStatus());
+            writer.newLine();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Método para listar
+    public ArrayList<Sessao> listar() {
+        ArrayList<Sessao> sessoes = new ArrayList<>();
+        try (
+            FileReader fr = new FileReader("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\sessoes.txt");
+            BufferedReader reader = new BufferedReader(fr)) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split(";");
+                int idsessao = Integer.parseInt(dados[0]);
+                DateTimeFormatter datahorasessao = DateTimeFormatter.ofPattern(dados[1]);
+                int idFilme = Integer.parseInt(dados[2]);
+                int matriculaFuncionario = Integer.parseInt(dados[3]);
+                String status = dados[4];
+
+                // Criar objetos Filme e Funcionario com base nos IDs
+                Filme filme = new Filme(idFilme, "Título Filme", 0, null, "Ativo");  // Ajustar para consultar filme correto
+                Funcionario funcionario = new Funcionario("cpf", "nome", "email", matriculaFuncionario, null);  // Ajustar consulta real
+
+                sessoes.add(new Sessao(idsessao, datahorasessao, filme, funcionario, status));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sessoes;
+    }
+
+    // Método para consultar por ID
+    public Sessao consultar(int id) {
+        for (Sessao sessao : listar()) {
+            if (sessao.getIdsessao() == id) {
+                return sessao;
+            }
+        }
+        return null;
+    }
+
+    // Método para editar
+    public boolean editar(int id, DateTimeFormatter novaDataHora, Filme novoFilme, Funcionario novoFuncionario, String novoStatus) {
+        ArrayList<Sessao> sessoes = listar();
+        boolean encontrado = false;
+
+        for (Sessao sessao : sessoes) {
+            if (sessao.getIdsessao() == id) {
+                sessao.setDatahorasessao(novaDataHora);
+                sessao.setFilme(novoFilme);
+                sessao.setFuncionario(novoFuncionario);
+                sessao.setStatus(novoStatus);
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (encontrado) {
+            try (
+                FileWriter fw = new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\sessoes.txt");
+                BufferedWriter writer = new BufferedWriter(fw)) {
+                for (Sessao sessao : sessoes) {
+                    writer.write(sessao.getIdsessao() + ";" +
+                                 sessao.getDatahorasessao() + ";" +
+                                 sessao.getFilme().getIdfilme() + ";" +
+                                 sessao.getFuncionario().getMatricula() + ";" +
+                                 sessao.getStatus());
+                    writer.newLine();
+                }
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 }

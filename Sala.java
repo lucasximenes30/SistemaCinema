@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Sala {
@@ -5,6 +10,7 @@ public class Sala {
     private int capacidadesala;
     private String status;
     
+    // Getters e Setters
     public int getIdsala() {
         return idsala;
     }
@@ -23,12 +29,87 @@ public class Sala {
     public void setStatus(String status) {
         this.status = status;
     }
+    
+    // Construtor
     public Sala(int idsala, int capacidadesala, String status) {
         this.idsala = idsala;
         this.capacidadesala = capacidadesala;
         this.status = status;
     }
-    
 
-    
+    // Método para cadastrar
+    public boolean cadastrar() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\salas.txt", true))) {
+            writer.write(this.getIdsala() + "; " +
+                         this.getCapacidadesala() + "; " +
+                         this.getStatus());
+            writer.newLine();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Método para listar
+    public ArrayList<Sala> listar() {
+        ArrayList<Sala> salas = new ArrayList<>();
+        try (
+            FileReader fr = new FileReader("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\salas.txt");
+            BufferedReader reader = new BufferedReader(fr)) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                String[] dados = linha.split("; ");
+                int idsala = Integer.parseInt(dados[0]);
+                int capacidadesala = Integer.parseInt(dados[1]);
+                String status = dados[2];
+                salas.add(new Sala(idsala, capacidadesala, status));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return salas;
+    }
+
+    // Método para consultar por ID de Sala
+    public Sala consultar(int idsala) {
+        for (Sala sala : listar()) {
+            if (sala.getIdsala() == idsala) {
+                return sala;
+            }
+        }
+        return null;
+    }
+
+    // Método para editar uma sala
+    public boolean editar(int idsala, int novaCapacidade, String novoStatus) {
+        ArrayList<Sala> salas = listar();
+        boolean encontrado = false;
+
+        for (Sala sala : salas) {
+            if (sala.getIdsala() == idsala) {
+                sala.setCapacidadesala(novaCapacidade);
+                sala.setStatus(novoStatus);
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (encontrado) {
+            try (
+                FileWriter fw = new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\salas.txt");
+                BufferedWriter writer = new BufferedWriter(fw)) {
+                for (Sala sala : salas) {
+                    writer.write(sala.getIdsala() + "; " +
+                                 sala.getCapacidadesala() + "; " +
+                                 sala.getStatus());
+                    writer.newLine();
+                }
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }
