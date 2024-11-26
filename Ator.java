@@ -33,7 +33,7 @@ public class Ator extends Pessoa {
     public ArrayList<Ator> listar() {
         ArrayList<Ator> atores = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\alunot5\\Documents\\AV3\\SistemaCinema\\BD\\atores.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\atores.txt"))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(";");
