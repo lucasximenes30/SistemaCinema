@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Ator extends Pessoa {
     private int registro;
 
+    // Getters e Setters
     public int getRegistro() {
         return registro;
     }
@@ -16,13 +17,19 @@ public class Ator extends Pessoa {
         this.registro = registro;
     }
 
+    // Construtor
     public Ator(String cpf, String nome, String email, int registro) {
         super(cpf, nome, email);
         this.registro = registro;
     }
+
+    // Método para cadastrar
     public boolean cadastrar() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\alunot5\\Documents\\AV3\\SistemaCinema\\BD\\atores.txt", true))) {
-            writer.write(this.getNome() + "; " + this.getCpf() + "; " + getEmail() + "; " + this.registro);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\atores.txt", true))) {
+            writer.write(this.getRegistro() + "; " +
+                         this.getCpf() + "; " +
+                         this.getNome() + "; " +
+                         this.getEmail());
             writer.newLine();
             return true;
         } catch (IOException e) {
@@ -30,10 +37,13 @@ public class Ator extends Pessoa {
             return false;
         }
     }
+
+    // Método para listar
     public ArrayList<Ator> listar() {
         ArrayList<Ator> atores = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\atores.txt"))) {
+        try (
+            FileReader fr = new FileReader("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\atores.txt");
+            BufferedReader reader = new BufferedReader(fr)) {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(";");
@@ -46,9 +56,50 @@ public class Ator extends Pessoa {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return atores;
     }
 
-    
+    // Método para consultar por CPF
+    public Ator consultar(String cpf) {
+        for (Ator ator : listar()) {
+            if (ator.getCpf().equals(cpf)) {
+                return ator;
+            }
+        }
+        return null;
+    }
+
+    // Método para editar
+    public boolean editar(String cpf, String novoNome, String novoEmail, int novoRegistro) {
+        ArrayList<Ator> atores = listar();
+        boolean encontrado = false;
+
+        for (Ator ator : atores) {
+            if (ator.getCpf().equals(cpf)) {
+                ator.setNome(novoNome);
+                ator.setEmail(novoEmail);
+                ator.setRegistro(novoRegistro);
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (encontrado) {
+            try (
+                FileWriter fw = new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\atores.txt");
+                BufferedWriter writer = new BufferedWriter(fw)) {
+                for (Ator ator : atores) {
+                    writer.write(ator.getRegistro() + ";" +
+                                 ator.getCpf() + ";" +
+                                 ator.getNome() + ";" +
+                                 ator.getEmail());
+                    writer.newLine();
+                }
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }
