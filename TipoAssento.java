@@ -43,7 +43,7 @@ public class TipoAssento {
     }
 
     // Método para inserir um tipo de assento no arquivo
-    public boolean inserir(TipoAssento tipoAssento) {
+    public boolean cadastrar(TipoAssento tipoAssento) {
         try (
             FileWriter fw = new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\tipoassentos.txt", true);
             BufferedWriter writer = new BufferedWriter(fw)) {

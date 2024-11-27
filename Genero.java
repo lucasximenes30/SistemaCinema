@@ -44,7 +44,7 @@ public class Genero {
 
     public boolean cadastrar(Genero genero) {
         try (
-            FileWriter fw = new FileWriter("C:\\Users\\ccaio\\OneDrive\\Área de Trabalho\\trab poo\\bd\\genero.txt", true);
+            FileWriter fw = new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\genero.txt", true);
             BufferedWriter writer = new BufferedWriter(fw)) {
             writer.write(genero.getId() + ";" + genero.getDescricao() + ";" + genero.getStatus());
             writer.newLine();
@@ -101,7 +101,7 @@ public class Genero {
 
         if (encontrado) {
             try (
-                FileWriter fw = new FileWriter("C:\\Users\\ccaio\\OneDrive\\Área de Trabalho\\trab poo\\bd\\genero.txt");
+                FileWriter fw = new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\genero.txt");
                 BufferedWriter writer = new BufferedWriter(fw)) {
                 for (Genero genero : generos) {
                     writer.write(genero.getId() + ";" + genero.getDescricao() + ";" + genero.getStatus());
