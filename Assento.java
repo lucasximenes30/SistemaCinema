@@ -32,8 +32,12 @@ public class Assento {
         this.tipoassento = tipoassento;
     }
 
+    public Assento(int idassento2, String descricao, String status) {
+        //TODO Auto-generated constructor stub
+    }
+
     // Método para inserir um assento no arquivo
-    public boolean inserir(Assento assento) {
+    public boolean cadastrar(Assento assento) {
         try (
             FileWriter fw = new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\assentos.txt", true);
             BufferedWriter writer = new BufferedWriter(fw)) {

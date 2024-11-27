@@ -42,7 +42,7 @@ public class Genero {
     }
 
 
-    public boolean inserir(Genero genero) {
+    public boolean cadastrar(Genero genero) {
         try (
             FileWriter fw = new FileWriter("C:\\Users\\ccaio\\OneDrive\\Área de Trabalho\\trab poo\\bd\\genero.txt", true);
             BufferedWriter writer = new BufferedWriter(fw)) {

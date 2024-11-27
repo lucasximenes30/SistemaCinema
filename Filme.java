@@ -63,7 +63,7 @@ public class Filme {
     }
 
     // Método para inserir um filme no arquivo
-    public boolean inserir(Filme filme) {
+    public boolean cadastrar(Filme filme) {
         try (
             FileWriter fw = new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\filmes.txt", true);
             BufferedWriter writer = new BufferedWriter(fw)) {
@@ -92,9 +92,11 @@ public class Filme {
                 int classificacao = Integer.parseInt(dados[2]);
                 int idGenero = Integer.parseInt(dados[3]);
                 String status = dados[4];
-
+    
                 // Aqui você precisa consultar o gênero com base no ID
-                Genero genero = new Genero(idGenero, "Descrição padrão", "Ativo"); // Ajustar conforme necessário
+                // Agora vamos usar uma consulta ou instanciar o Genero com dados reais
+                Genero genero = consultarGenero(idGenero); // Método que consulta o Gênero real
+    
                 filmes.add(new Filme(idfilme, titulo, classificacao, genero, status));
             }
         } catch (IOException e) {
@@ -102,16 +104,14 @@ public class Filme {
         }
         return filmes;
     }
-
-    // Método para consultar um filme por ID
-    public Filme consultar(int id) {
-        for (Filme filme : listar()) {
-            if (filme.getIdfilme() == id) {
-                return filme;
-            }
-        }
-        return null;
+    
+    // Método para consultar o Gênero baseado no ID (ajuste conforme seu banco de dados)
+    private Genero consultarGenero(int idGenero) {
+        // Aqui você deve procurar o Gênero real, seja em um banco ou arquivo
+        // Para fins de exemplo, criaremos um Gênero genérico
+        return new Genero(idGenero, "Gênero padrão", "Ativo"); // Ajuste conforme a lógica do seu sistema
     }
+    
 
     // Método para editar um filme existente
     public boolean editar(int id, String novoTitulo, int novaClassificacao, Genero novoGenero, String novoStatus) {
