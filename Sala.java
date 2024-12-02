@@ -29,6 +29,15 @@ public class Sala {
     public void setStatus(String status) {
         this.status = status;
     }
+    @Override
+    public String toString() {
+        return "Sala{" +
+            "idsala=" + idsala +
+            ", capacidadesala=" + capacidadesala +
+            ", status='" + status + '\'' +
+            '}';
+    }
+
     
     // Construtor
     public Sala(int idsala, int capacidadesala, String status) {

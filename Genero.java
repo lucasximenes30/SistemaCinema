@@ -40,6 +40,15 @@ public class Genero {
         this.descricao = descricao;
         this.Status = status;
     }
+    @Override
+    public String toString() {
+        return "Genero{" +
+            "id=" + id +
+            ", descricao='" + descricao + '\'' +
+            ", status='" + Status + '\'' +
+            '}';
+    }
+
 
 
     public boolean cadastrar(Genero genero) {

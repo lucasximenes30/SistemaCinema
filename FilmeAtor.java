@@ -45,13 +45,24 @@ public class FilmeAtor {
         this.personagem = personagem;
     }
 
-    public boolean isPrincipal() {
+    public boolean getPrincipal() {
         return principal;
     }
 
     public void setPrincipal(boolean principal) {
         this.principal = principal;
     }
+    @Override
+    public String toString() {
+    return "FilmeAtor{" +
+            "idfilmeator=" + idfilmeator +
+            ", ator=" + (ator != null ? ator.toString() : "null") +
+            ", filme=" + (filme != null ? filme.toString() : "null") +
+            ", personagem='" + personagem + '\'' +
+            ", principal=" + principal +
+            '}';
+    }
+
 
     // Construtor
     public FilmeAtor(int idfilmeator, Ator ator, Filme filme, String personagem, boolean principal) {
@@ -71,7 +82,7 @@ public class FilmeAtor {
                          filmeAtor.getAtor().getRegistro() + ";" +  // Usando getRegistro() do Ator
                          filmeAtor.getFilme().getIdfilme() + ";" +
                          filmeAtor.getPersonagem() + ";" +
-                         filmeAtor.isPrincipal());  // Usando isPrincipal() para o boolean
+                         filmeAtor.getPrincipal());  // Usando isPrincipal() para o boolean
             writer.newLine();
             return true;
         } catch (IOException e) {
@@ -142,7 +153,7 @@ public class FilmeAtor {
                                  filmeAtor.getAtor().getRegistro() + ";" +  // Usando getRegistro() do Ator
                                  filmeAtor.getFilme().getIdfilme() + ";" +
                                  filmeAtor.getPersonagem() + ";" +
-                                 filmeAtor.isPrincipal());  // Usando isPrincipal() para o boolean
+                                 filmeAtor.getPrincipal());  // Usando isPrincipal() para o boolean
                     writer.newLine();
                 }
                 return true;

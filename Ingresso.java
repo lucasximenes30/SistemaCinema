@@ -29,6 +29,15 @@ public class Ingresso {
     public void setSessao(Sessao sessao) {
         this.sessao = sessao;
     }
+    @Override
+    public String toString() {
+        return "Ingresso{" +
+            "idingresso=" + idingresso +
+            ", salaassento=" + salaassento +
+            ", sessao=" + (sessao != null ? sessao.toString() : "null") +
+            '}';    
+    }
+
 
     // Construtor
     public Ingresso(int idingresso, double salaassento, Sessao sessao) {

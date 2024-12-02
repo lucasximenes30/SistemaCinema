@@ -16,6 +16,13 @@ public class Ator extends Pessoa {
     public void setRegistro(int registro) {
         this.registro = registro;
     }
+    @Override
+    public String toString() {
+        return "Ator{" +
+            "registro=" + registro +
+            ", " + super.toString() +
+            '}';
+}
 
     // Construtor
     public Ator(String cpf, String nome, String email, int registro) {

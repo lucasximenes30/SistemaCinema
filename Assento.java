@@ -31,6 +31,14 @@ public class Assento {
         this.idassento = idassento;
         this.tipoassento = tipoassento;
     }
+    @Override
+public String toString() {
+    return "Assento{" +
+            "idassento=" + idassento +
+            ", tipoassento=" + (tipoassento != null ? tipoassento.toString() : "null") +
+            '}';
+}
+
 
     public Assento(int idassento2, String descricao, String status) {
         //TODO Auto-generated constructor stub

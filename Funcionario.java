@@ -33,6 +33,15 @@ public class Funcionario extends Pessoa {
         this.matricula = matricula;
         this.horarioTrabalho = horarioTrabalho;
     }
+    @Override
+    public String toString() {
+    return "Funcionario{" +
+            "matricula=" + matricula +
+            ", horarioTrabalho=" + (horarioTrabalho != null ? horarioTrabalho.toString() : "null") +
+            ", " + super.toString() +
+            '}';
+    }
+
 
     // Método para cadastrar
     public boolean cadastrar() {

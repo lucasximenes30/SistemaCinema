@@ -52,6 +52,17 @@ public class Filme {
     public void setStatus(String status) {
         this.status = status;
     }
+    @Override
+    public String toString() {
+        return "Filme{" +
+            "idfilme=" + idfilme +
+            ", titulo='" + titulo + '\'' +
+            ", classificacao=" + classificacao +
+            ", genero=" + (genero != null ? genero.toString() : "null") +
+            ", status='" + status + '\'' +
+            '}';
+    }
+
 
     // Construtor
     public Filme(int idfilme, String titulo, int classificacao, Genero genero, String status) {

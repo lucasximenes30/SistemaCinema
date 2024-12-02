@@ -41,6 +41,15 @@ public class SalaAssento {
         this.assento = assento;
         this.sala = sala;
     }
+    @Override
+    public String toString() {
+        return "SalaAssento{" +
+            "idsalaAssento=" + idsalaAssento +
+            ", assento=" + (assento != null ? assento.toString() : "null") +
+            ", sala=" + (sala != null ? sala.toString() : "null") +
+            '}';
+    }
+
 
     // Método para cadastrar
     public boolean cadastrar() {

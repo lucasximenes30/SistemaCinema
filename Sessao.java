@@ -44,6 +44,17 @@ public class Sessao {
     public void setStatus(String status) {
         this.status = status;
     }
+    @Override
+    public String toString() {
+        return "Sessao{" +
+            "idsessao=" + idsessao +
+            ", datahorasessao=" + (datahorasessao != null ? datahorasessao.toString() : "null") +
+            ", filme=" + (filme != null ? filme.toString() : "null") +
+            ", funcionario=" + (funcionario != null ? funcionario.toString() : "null") +
+            ", status='" + status + '\'' +
+            '}';
+    }
+
 
     // Construtor
     public Sessao(int idsessao, DateTimeFormatter datahorasessao, Filme filme, Funcionario funcionario, String status) {

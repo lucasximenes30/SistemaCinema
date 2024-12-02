@@ -41,6 +41,15 @@ public class TipoAssento {
         this.descricao = descricao;
         this.status = status;
     }
+    @Override
+    public String toString() {
+        return "TipoAssento{" +
+            "idtipoassento=" + idtipoassento +
+            ", descricao='" + descricao + '\'' +
+            ", status='" + status + '\'' +
+            '}';
+    }
+
 
     // Método para inserir um tipo de assento no arquivo
     public boolean cadastrar(TipoAssento tipoAssento) {
