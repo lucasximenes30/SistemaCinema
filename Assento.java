@@ -9,7 +9,6 @@ public class Assento {
     private int idassento;
     private TipoAssento tipoassento;
 
-    // Getters e Setters
     public int getIdassento() {
         return idassento;
     }
@@ -26,25 +25,22 @@ public class Assento {
         this.tipoassento = tipoassento;
     }
 
-    // Construtor
     public Assento(int idassento, TipoAssento tipoassento) {
         this.idassento = idassento;
         this.tipoassento = tipoassento;
     }
+
     @Override
-public String toString() {
-    return "Assento{" +
-            "idassento=" + idassento +
-            ", tipoassento=" + (tipoassento != null ? tipoassento.toString() : "null") +
-            '}';
-}
-
-
-    public Assento(int idassento2, String descricao, String status) {
-        //TODO Auto-generated constructor stub
+    public String toString() {
+        return "Assento{" +
+                "idassento=" + idassento +
+                ", tipoassento=" + (tipoassento != null ? tipoassento.toString() : "null") +
+                '}';
     }
 
-    // Método para inserir um assento no arquivo
+    public Assento(int idassento2, String descricao, String status) {
+    }
+
     public boolean cadastrar(Assento assento) {
         try (
             FileWriter fw = new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\assentos.txt", true);
@@ -58,7 +54,6 @@ public String toString() {
         }
     }
 
-    // Método para listar todos os assentos
     public ArrayList<Assento> listar() {
         ArrayList<Assento> assentos = new ArrayList<>();
         try (
@@ -69,7 +64,7 @@ public String toString() {
                 String[] dados = linha.split(";");
                 int idassento = Integer.parseInt(dados[0]);
                 int idtipoassento = Integer.parseInt(dados[1]);
-                TipoAssento tipoassento = new TipoAssento(idtipoassento, "Descrição padrão", "Ativo"); // Ajuste conforme necessário
+                TipoAssento tipoassento = new TipoAssento(idtipoassento, "Descrição padrão", "Ativo");
                 assentos.add(new Assento(idassento, tipoassento));
             }
         } catch (IOException e) {
@@ -78,7 +73,6 @@ public String toString() {
         return assentos;
     }
 
-    // Método para consultar um assento por ID
     public Assento consultar(int id) {
         for (Assento assento : listar()) {
             if (assento.getIdassento() == id) {
@@ -88,7 +82,6 @@ public String toString() {
         return null;
     }
 
-    // Método para editar um assento existente
     public boolean editar(int id, TipoAssento novoTipoAssento) {
         ArrayList<Assento> assentos = listar();
         boolean encontrado = false;

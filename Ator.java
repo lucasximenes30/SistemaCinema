@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Ator extends Pessoa {
     private int registro;
 
-    // Getters e Setters
     public int getRegistro() {
         return registro;
     }
@@ -16,21 +15,20 @@ public class Ator extends Pessoa {
     public void setRegistro(int registro) {
         this.registro = registro;
     }
+
     @Override
     public String toString() {
         return "Ator{" +
             "registro=" + registro +
             ", " + super.toString() +
             '}';
-}
+    }
 
-    // Construtor
     public Ator(String cpf, String nome, String email, int registro) {
         super(cpf, nome, email);
         this.registro = registro;
     }
 
-    // Método para cadastrar
     public boolean cadastrar() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\atores.txt", true))) {
             writer.write(this.getRegistro() + "; " +
@@ -45,7 +43,6 @@ public class Ator extends Pessoa {
         }
     }
 
-    // Método para listar
     public ArrayList<Ator> listar() {
         ArrayList<Ator> atores = new ArrayList<>();
         try (
@@ -66,7 +63,6 @@ public class Ator extends Pessoa {
         return atores;
     }
 
-    // Método para consultar por CPF
     public Ator consultar(String cpf) {
         for (Ator ator : listar()) {
             if (ator.getCpf().equals(cpf)) {
@@ -76,7 +72,6 @@ public class Ator extends Pessoa {
         return null;
     }
 
-    // Método para editar
     public boolean editar(String cpf, String novoNome, String novoEmail, int novoRegistro) {
         ArrayList<Ator> atores = listar();
         boolean encontrado = false;

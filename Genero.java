@@ -34,12 +34,12 @@ public class Genero {
         Status = status;
     }
 
-
     public Genero(int id, String descricao, String status) {
         this.id = id;
         this.descricao = descricao;
         this.Status = status;
     }
+
     @Override
     public String toString() {
         return "Genero{" +
@@ -48,8 +48,6 @@ public class Genero {
             ", status='" + Status + '\'' +
             '}';
     }
-
-
 
     public boolean cadastrar(Genero genero) {
         try (
@@ -63,7 +61,6 @@ public class Genero {
             return false;
         }
     }
-
 
     public ArrayList<Genero> listar() {
         ArrayList<Genero> generos = new ArrayList<>();
@@ -84,7 +81,6 @@ public class Genero {
         return generos;
     }
 
-
     public Genero consultar(String desc) {
         for (Genero genero : listar()) {
             if (genero.getDescricao().equalsIgnoreCase(desc)) {
@@ -93,7 +89,6 @@ public class Genero {
         }
         return null;
     }
-
 
     public boolean editar(int id, String novaDesc, String novoStatus) {
         ArrayList<Genero> generos = listar();

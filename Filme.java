@@ -12,7 +12,6 @@ public class Filme {
     private Genero genero;
     private String status;
 
-    // Getters e Setters
     public int getIdfilme() {
         return idfilme;
     }
@@ -52,19 +51,18 @@ public class Filme {
     public void setStatus(String status) {
         this.status = status;
     }
+
     @Override
     public String toString() {
         return "Filme{" +
-            "idfilme=" + idfilme +
-            ", titulo='" + titulo + '\'' +
-            ", classificacao=" + classificacao +
-            ", genero=" + (genero != null ? genero.toString() : "null") +
-            ", status='" + status + '\'' +
-            '}';
+                "idfilme=" + idfilme +
+                ", titulo='" + titulo + '\'' +
+                ", classificacao=" + classificacao +
+                ", genero=" + (genero != null ? genero.toString() : "null") +
+                ", status='" + status + '\'' +
+                '}';
     }
 
-
-    // Construtor
     public Filme(int idfilme, String titulo, int classificacao, Genero genero, String status) {
         this.idfilme = idfilme;
         this.titulo = titulo;
@@ -73,7 +71,6 @@ public class Filme {
         this.status = status;
     }
 
-    // Método para inserir um filme no arquivo
     public boolean cadastrar(Filme filme) {
         try (
             FileWriter fw = new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\filmes.txt", true);
@@ -89,7 +86,6 @@ public class Filme {
         }
     }
 
-    // Método para listar todos os filmes
     public ArrayList<Filme> listar() {
         ArrayList<Filme> filmes = new ArrayList<>();
         try (
@@ -103,11 +99,7 @@ public class Filme {
                 int classificacao = Integer.parseInt(dados[2]);
                 int idGenero = Integer.parseInt(dados[3]);
                 String status = dados[4];
-    
-                // Aqui você precisa consultar o gênero com base no ID
-                // Agora vamos usar uma consulta ou instanciar o Genero com dados reais
-                Genero genero = consultarGenero(idGenero); // Método que consulta o Gênero real
-    
+                Genero genero = consultarGenero(idGenero);
                 filmes.add(new Filme(idfilme, titulo, classificacao, genero, status));
             }
         } catch (IOException e) {
@@ -115,16 +107,11 @@ public class Filme {
         }
         return filmes;
     }
-    
-    // Método para consultar o Gênero baseado no ID (ajuste conforme seu banco de dados)
-    private Genero consultarGenero(int idGenero) {
-        // Aqui você deve procurar o Gênero real, seja em um banco ou arquivo
-        // Para fins de exemplo, criaremos um Gênero genérico
-        return new Genero(idGenero, "Gênero padrão", "Ativo"); // Ajuste conforme a lógica do seu sistema
-    }
-    
 
-    // Método para editar um filme existente
+    private Genero consultarGenero(int idGenero) {
+        return new Genero(idGenero, "Gênero padrão", "Ativo");
+    }
+
     public boolean editar(int id, String novoTitulo, int novaClassificacao, Genero novoGenero, String novoStatus) {
         ArrayList<Filme> filmes = listar();
         boolean encontrado = false;

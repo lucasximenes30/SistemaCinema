@@ -9,26 +9,31 @@ public class Sala {
     private int idsala;
     private int capacidadesala;
     private String status;
-    
-    // Getters e Setters
+
     public int getIdsala() {
         return idsala;
     }
+
     public void setIdsala(int idsala) {
         this.idsala = idsala;
     }
+
     public int getCapacidadesala() {
         return capacidadesala;
     }
+
     public void setCapacidadesala(int capacidadesala) {
         this.capacidadesala = capacidadesala;
     }
+
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
+
     @Override
     public String toString() {
         return "Sala{" +
@@ -38,15 +43,12 @@ public class Sala {
             '}';
     }
 
-    
-    // Construtor
     public Sala(int idsala, int capacidadesala, String status) {
         this.idsala = idsala;
         this.capacidadesala = capacidadesala;
         this.status = status;
     }
 
-    // Método para cadastrar
     public boolean cadastrar() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\salas.txt", true))) {
             writer.write(this.getIdsala() + "; " +
@@ -60,7 +62,6 @@ public class Sala {
         }
     }
 
-    // Método para listar
     public ArrayList<Sala> listar() {
         ArrayList<Sala> salas = new ArrayList<>();
         try (
@@ -80,7 +81,6 @@ public class Sala {
         return salas;
     }
 
-    // Método para consultar por ID de Sala
     public Sala consultar(int idsala) {
         for (Sala sala : listar()) {
             if (sala.getIdsala() == idsala) {
@@ -90,7 +90,6 @@ public class Sala {
         return null;
     }
 
-    // Método para editar uma sala
     public boolean editar(int idsala, int novaCapacidade, String novoStatus) {
         ArrayList<Sala> salas = listar();
         boolean encontrado = false;

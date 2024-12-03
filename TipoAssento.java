@@ -10,7 +10,6 @@ public class TipoAssento {
     private String descricao;
     private String status;
 
-    // Getters e Setters
     public int getIdtipoassento() {
         return idtipoassento;
     }
@@ -35,12 +34,12 @@ public class TipoAssento {
         this.status = status;
     }
 
-    // Construtor
     public TipoAssento(int idtipoassento, String descricao, String status) {
         this.idtipoassento = idtipoassento;
         this.descricao = descricao;
         this.status = status;
     }
+
     @Override
     public String toString() {
         return "TipoAssento{" +
@@ -50,8 +49,6 @@ public class TipoAssento {
             '}';
     }
 
-
-    // Método para inserir um tipo de assento no arquivo
     public boolean cadastrar(TipoAssento tipoAssento) {
         try (
             FileWriter fw = new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\tipoassentos.txt", true);
@@ -65,7 +62,6 @@ public class TipoAssento {
         }
     }
 
-    // Método para listar todos os tipos de assento
     public ArrayList<TipoAssento> listar() {
         ArrayList<TipoAssento> tipoAssentos = new ArrayList<>();
         try (
@@ -85,7 +81,6 @@ public class TipoAssento {
         return tipoAssentos;
     }
 
-    // Método para consultar um tipo de assento por ID
     public TipoAssento consultar(int id) {
         for (TipoAssento tipoAssento : listar()) {
             if (tipoAssento.getIdtipoassento() == id) {
@@ -95,7 +90,6 @@ public class TipoAssento {
         return null;
     }
 
-    // Método para editar um tipo de assento existente
     public boolean editar(int id, String novaDescricao, String novoStatus) {
         ArrayList<TipoAssento> tipoAssentos = listar();
         boolean encontrado = false;

@@ -12,7 +12,6 @@ public class FilmeAtor {
     private String personagem;
     private boolean principal;
 
-    // Getters e Setters
     public int getIdfilmeator() {
         return idfilmeator;
     }
@@ -52,19 +51,18 @@ public class FilmeAtor {
     public void setPrincipal(boolean principal) {
         this.principal = principal;
     }
+
     @Override
     public String toString() {
-    return "FilmeAtor{" +
-            "idfilmeator=" + idfilmeator +
-            ", ator=" + (ator != null ? ator.toString() : "null") +
-            ", filme=" + (filme != null ? filme.toString() : "null") +
-            ", personagem='" + personagem + '\'' +
-            ", principal=" + principal +
-            '}';
+        return "FilmeAtor{" +
+                "idfilmeator=" + idfilmeator +
+                ", ator=" + (ator != null ? ator.toString() : "null") +
+                ", filme=" + (filme != null ? filme.toString() : "null") +
+                ", personagem='" + personagem + '\'' +
+                ", principal=" + principal +
+                '}';
     }
 
-
-    // Construtor
     public FilmeAtor(int idfilmeator, Ator ator, Filme filme, String personagem, boolean principal) {
         this.idfilmeator = idfilmeator;
         this.ator = ator;
@@ -73,16 +71,15 @@ public class FilmeAtor {
         this.principal = principal;
     }
 
-    // Método para inserir
     public boolean inserir(FilmeAtor filmeAtor) {
         try (
             FileWriter fw = new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\filmeator.txt", true);
             BufferedWriter writer = new BufferedWriter(fw)) {
             writer.write(filmeAtor.getIdfilmeator() + ";" +
-                         filmeAtor.getAtor().getRegistro() + ";" +  // Usando getRegistro() do Ator
+                         filmeAtor.getAtor().getRegistro() + ";" +
                          filmeAtor.getFilme().getIdfilme() + ";" +
                          filmeAtor.getPersonagem() + ";" +
-                         filmeAtor.getPrincipal());  // Usando isPrincipal() para o boolean
+                         filmeAtor.getPrincipal());
             writer.newLine();
             return true;
         } catch (IOException e) {
@@ -91,7 +88,6 @@ public class FilmeAtor {
         }
     }
 
-    // Método para listar
     public ArrayList<FilmeAtor> listar() {
         ArrayList<FilmeAtor> filmeAtores = new ArrayList<>();
         try (
@@ -106,10 +102,8 @@ public class FilmeAtor {
                 String personagem = dados[3];
                 boolean principal = Boolean.parseBoolean(dados[4]);
 
-                // Consultar o ator e filme com base nos IDs
-                Ator ator = new Ator("", "", "", idAtor);  // Usando o idAtor para criar um ator (depois pode-se melhorar com consulta real)
-                Filme filme = new Filme(idFilme, "", 0, null, "");  // Usando idFilme, que pode ser consultado depois
-
+                Ator ator = new Ator("", "", "", idAtor);
+                Filme filme = new Filme(idFilme, "", 0, null, "");
                 filmeAtores.add(new FilmeAtor(idfilmeator, ator, filme, personagem, principal));
             }
         } catch (IOException e) {
@@ -118,7 +112,6 @@ public class FilmeAtor {
         return filmeAtores;
     }
 
-    // Método para consultar
     public FilmeAtor consultar(int id) {
         for (FilmeAtor filmeAtor : listar()) {
             if (filmeAtor.getIdfilmeator() == id) {
@@ -128,7 +121,6 @@ public class FilmeAtor {
         return null;
     }
 
-    // Método para editar
     public boolean editar(int id, Ator novoAtor, Filme novoFilme, String novoPersonagem, boolean novoPrincipal) {
         ArrayList<FilmeAtor> filmeAtores = listar();
         boolean encontrado = false;
@@ -150,10 +142,10 @@ public class FilmeAtor {
                 BufferedWriter writer = new BufferedWriter(fw)) {
                 for (FilmeAtor filmeAtor : filmeAtores) {
                     writer.write(filmeAtor.getIdfilmeator() + ";" +
-                                 filmeAtor.getAtor().getRegistro() + ";" +  // Usando getRegistro() do Ator
+                                 filmeAtor.getAtor().getRegistro() + ";" +
                                  filmeAtor.getFilme().getIdfilme() + ";" +
                                  filmeAtor.getPersonagem() + ";" +
-                                 filmeAtor.getPrincipal());  // Usando isPrincipal() para o boolean
+                                 filmeAtor.getPrincipal());
                     writer.newLine();
                 }
                 return true;

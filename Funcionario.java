@@ -10,7 +10,6 @@ public class Funcionario extends Pessoa {
     private int matricula;
     private Date horarioTrabalho;
 
-    // Getters e Setters
     public int getMatricula() {
         return matricula;
     }
@@ -27,23 +26,21 @@ public class Funcionario extends Pessoa {
         this.horarioTrabalho = horarioTrabalho;
     }
 
-    // Construtor
     public Funcionario(String cpf, String nome, String email, int matricula, Date horarioTrabalho) {
         super(cpf, nome, email);
         this.matricula = matricula;
         this.horarioTrabalho = horarioTrabalho;
     }
+
     @Override
     public String toString() {
-    return "Funcionario{" +
-            "matricula=" + matricula +
-            ", horarioTrabalho=" + (horarioTrabalho != null ? horarioTrabalho.toString() : "null") +
-            ", " + super.toString() +
-            '}';
+        return "Funcionario{" +
+                "matricula=" + matricula +
+                ", horarioTrabalho=" + (horarioTrabalho != null ? horarioTrabalho.toString() : "null") +
+                ", " + super.toString() +
+                '}';
     }
 
-
-    // Método para cadastrar
     public boolean cadastrar() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\funcionarios.txt", true))) {
             writer.write(this.getMatricula() + "; " +
@@ -59,7 +56,6 @@ public class Funcionario extends Pessoa {
         }
     }
 
-    // Método para listar
     public ArrayList<Funcionario> listar() {
         ArrayList<Funcionario> funcionarios = new ArrayList<>();
         try (
@@ -72,7 +68,7 @@ public class Funcionario extends Pessoa {
                 String cpf = dados[1];
                 String nome = dados[2];
                 String email = dados[3];
-                Date horarioTrabalho = Date.valueOf(dados[4]);  // Converte a string para Date
+                Date horarioTrabalho = Date.valueOf(dados[4]);
                 funcionarios.add(new Funcionario(cpf, nome, email, matricula, horarioTrabalho));
             }
         } catch (IOException e) {
@@ -81,7 +77,6 @@ public class Funcionario extends Pessoa {
         return funcionarios;
     }
 
-    // Método para consultar por matrícula
     public Funcionario consultar(int matricula) {
         for (Funcionario funcionario : listar()) {
             if (funcionario.getMatricula() == matricula) {
@@ -91,7 +86,6 @@ public class Funcionario extends Pessoa {
         return null;
     }
 
-    // Método para editar
     public boolean editar(int matricula, String novoNome, String novoEmail, Date novoHorarioTrabalho) {
         ArrayList<Funcionario> funcionarios = listar();
         boolean encontrado = false;

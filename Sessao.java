@@ -12,38 +12,47 @@ public class Sessao {
     private Filme filme;
     private Funcionario funcionario;
     private String status;
-    
-    // Getters e Setters
+
     public int getIdsessao() {
         return idsessao;
     }
+
     public void setIdsessao(int idsessao) {
         this.idsessao = idsessao;
     }
+
     public DateTimeFormatter getDatahorasessao() {
         return datahorasessao;
     }
+
     public void setDatahorasessao(DateTimeFormatter datahorasessao) {
         this.datahorasessao = datahorasessao;
     }
+
     public Filme getFilme() {
         return filme;
     }
+
     public void setFilme(Filme filme) {
         this.filme = filme;
     }
+
     public Funcionario getFuncionario() {
         return funcionario;
     }
+
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
+
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
+
     @Override
     public String toString() {
         return "Sessao{" +
@@ -55,8 +64,6 @@ public class Sessao {
             '}';
     }
 
-
-    // Construtor
     public Sessao(int idsessao, DateTimeFormatter datahorasessao, Filme filme, Funcionario funcionario, String status) {
         this.idsessao = idsessao;
         this.datahorasessao = datahorasessao;
@@ -65,13 +72,12 @@ public class Sessao {
         this.status = status;
     }
 
-    // Método para cadastrar
     public boolean cadastrar() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\sessoes.txt", true))) {
             writer.write(this.getIdsessao() + ";" +
                          this.getDatahorasessao() + ";" +
-                         this.getFilme().getIdfilme() + ";" +  // Assuming Filme has getIdfilme()
-                         this.getFuncionario().getMatricula() + ";" +  // Assuming Funcionario has getMatricula()
+                         this.getFilme().getIdfilme() + ";" +  
+                         this.getFuncionario().getMatricula() + ";" +  
                          this.getStatus());
             writer.newLine();
             return true;
@@ -81,7 +87,6 @@ public class Sessao {
         }
     }
 
-    // Método para listar
     public ArrayList<Sessao> listar() {
         ArrayList<Sessao> sessoes = new ArrayList<>();
         try (
@@ -96,9 +101,8 @@ public class Sessao {
                 int matriculaFuncionario = Integer.parseInt(dados[3]);
                 String status = dados[4];
 
-                // Criar objetos Filme e Funcionario com base nos IDs
-                Filme filme = new Filme(idFilme, "Título Filme", 0, null, "Ativo");  // Ajustar para consultar filme correto
-                Funcionario funcionario = new Funcionario("cpf", "nome", "email", matriculaFuncionario, null);  // Ajustar consulta real
+                Filme filme = new Filme(idFilme, "Título Filme", 0, null, "Ativo");  
+                Funcionario funcionario = new Funcionario("cpf", "nome", "email", matriculaFuncionario, null);
 
                 sessoes.add(new Sessao(idsessao, datahorasessao, filme, funcionario, status));
             }
@@ -108,7 +112,6 @@ public class Sessao {
         return sessoes;
     }
 
-    // Método para consultar por ID
     public Sessao consultar(int id) {
         for (Sessao sessao : listar()) {
             if (sessao.getIdsessao() == id) {
@@ -118,7 +121,6 @@ public class Sessao {
         return null;
     }
 
-    // Método para editar
     public boolean editar(int id, DateTimeFormatter novaDataHora, Filme novoFilme, Funcionario novoFuncionario, String novoStatus) {
         ArrayList<Sessao> sessoes = listar();
         boolean encontrado = false;

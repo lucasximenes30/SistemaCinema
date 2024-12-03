@@ -10,7 +10,6 @@ public class SalaAssento {
     private Assento assento;
     private Sala sala;
 
-    // Getters e Setters
     public int getIdsalaAssento() {
         return idsalaAssento;
     }
@@ -35,12 +34,12 @@ public class SalaAssento {
         this.sala = sala;
     }
 
-    // Construtor
     public SalaAssento(int idsalaAssento, Assento assento, Sala sala) {
         this.idsalaAssento = idsalaAssento;
         this.assento = assento;
         this.sala = sala;
     }
+
     @Override
     public String toString() {
         return "SalaAssento{" +
@@ -50,8 +49,6 @@ public class SalaAssento {
             '}';
     }
 
-
-    // Método para cadastrar
     public boolean cadastrar() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Lucas\\Desktop\\Cinema\\SistemaCinema\\BD\\sala_assentos.txt", true))) {
             writer.write(this.getIdsalaAssento() + "; " +
@@ -65,7 +62,6 @@ public class SalaAssento {
         }
     }
 
-    // Método para listar
     public ArrayList<SalaAssento> listar() {
         ArrayList<SalaAssento> salaAssentos = new ArrayList<>();
         try (
@@ -73,16 +69,14 @@ public class SalaAssento {
             BufferedReader reader = new BufferedReader(fr)) {
             String linha;
             while ((linha = reader.readLine()) != null) {
-                String[] dados = linha.split("; "); // Certifique-se de que o separador no arquivo é "; "
+                String[] dados = linha.split("; ");
                 int idsalaAssento = Integer.parseInt(dados[0]);
                 int idAssento = Integer.parseInt(dados[1]);
                 int idSala = Integer.parseInt(dados[2]);
 
-                // Consultar o objeto Assento
-                Assento assento = new Assento(idSala, null).consultar(idAssento); // Requer implementação no Assento
+                Assento assento = new Assento(idSala, null).consultar(idAssento);
 
-                // Consultar o objeto Sala
-                Sala sala = new Sala(idSala, idSala, linha).consultar(idSala); // Requer implementação no Sala
+                Sala sala = new Sala(idSala, idSala, linha).consultar(idSala);
 
                 if (assento != null && sala != null) {
                     salaAssentos.add(new SalaAssento(idsalaAssento, assento, sala));
@@ -96,7 +90,6 @@ public class SalaAssento {
         return salaAssentos;
     }
 
-    // Método para consultar por ID de SalaAssento
     public SalaAssento consultar(int idsalaAssento) {
         for (SalaAssento salaAssento : listar()) {
             if (salaAssento.getIdsalaAssento() == idsalaAssento) {
@@ -106,7 +99,6 @@ public class SalaAssento {
         return null;
     }
 
-    // Método para editar
     public boolean editar(int idsalaAssento, Assento novoAssento, Sala novaSala) {
         ArrayList<SalaAssento> salaAssentos = listar();
         boolean encontrado = false;
